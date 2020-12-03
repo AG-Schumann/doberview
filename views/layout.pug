@@ -1,7 +1,29 @@
 doctype html
 html
   head
-    title= title
+    title= Doberview
+    link(src="/javascripts/doberview.js", type="text/javascript")
     link(rel='stylesheet', href='/stylesheets/style.css')
+
+    block extrahead
   body
+    div.overlay
+    div.wrapper
+      nav#topbar.colored.active
+        button.navbar-btn.colored.sidebarCollapse(type="button")
+        span.pagetitle Doberview
+      div#sidebar_wrapper.active
+        nav#sidebar.colored.active
+          button.navbar-btn.colored.sidebarCollapse(type="button")
     block content
+
+    script.
+      $(document).ready(function() {
+        $('.sidebarCollapse').on('click', function() {
+          $('#sidebar').toggleClass('active');
+          $('.overlay').toggleClass('active');
+          $('#sidebar_wrapper').toggleClass('active');
+          $('.sidebarCollapse').toggleClass('active');
+          $('#topbar').toggleClass('active');
+        })
+      });

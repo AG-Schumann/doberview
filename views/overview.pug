@@ -1,0 +1,17 @@
+extends layout
+
+block extrahead
+  script(src="/javascripts/overview.js", type="text/javascript")
+
+block content
+  div.main-container(style='background-color:#eeeeee;margin:-5px;padding:1px;height:100vh')
+  br
+  div.row
+    each val in [['one', 'One'], ['two', 'Two']]
+      div.col-md-4.col-xs-12
+  br
+
+  script.
+    $(document).ready(function(){
+
+    });
