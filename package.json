@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ag-schumann/doberview#readme",
   "dependencies": {
     "assert": "^2.0.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "^1.4.5",
@@ -27,6 +28,8 @@
     "mongodb": "^3.6.3",
     "nodemailer": "^6.4.16",
     "passport": "^0.4.1",
+    "passport-github2": "^0.1.12",
+    "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0"
   }
 }
