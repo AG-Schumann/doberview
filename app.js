@@ -1,8 +1,9 @@
 var createError = require('http-errors');
 var express = require('express');
-var path=require('path');
+var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var logger = require('morgan');
 
 const { MongoClient } = require('mongodb');
 var uri = process.env.DOBERVIEW_MONGO_URI;
@@ -53,6 +54,7 @@ app.use('/je', express.static(__dirname + '/node_modules/jsoneditor/dist'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.user(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -69,24 +71,24 @@ app.use((req, res, next) => {
 });
 
 // url routers
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/overview');
 
 app.use('/', indexRouter);
 
 
 // catch 404
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // make user object accessible to templates
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
   res.locals.user = req.user;
   next();
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);

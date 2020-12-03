@@ -4,13 +4,14 @@
   "description": "Web frontend for Doberman V",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ag-schumann/doberview.git"
   },
-  "author": "Darryl Masson, Jaron Grigat",
+  "author": "Darryl Masson, Jaron Grigat, Florian Toennies",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/ag-schumann/doberview/issues"
@@ -22,14 +23,17 @@
     "body-parser": "^1.19.0",
     "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "^1.4.5",
+    "debug": "^4.3.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "http-errors": "^1.8.0",
     "mongodb": "^3.6.3",
+    "morgan": "^1.10.0",
     "nodemailer": "^6.4.16",
     "passport": "^0.4.1",
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
+    "pug": "^3.0.0",
     "serve-favicon": "^2.5.0"
   }
 }
