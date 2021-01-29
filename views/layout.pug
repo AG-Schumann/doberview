@@ -1,29 +1,58 @@
 doctype html
-html
-  head
-    title= Doberview
-    link(src="/javascripts/doberview.js", type="text/javascript")
-    link(rel='stylesheet', href='/stylesheets/style.css')
-
-    block extrahead
-  body
-    div.overlay
-    div.wrapper
-      nav#topbar.colored.active
-        button.navbar-btn.colored.sidebarCollapse(type="button")
-        span.pagetitle Doberview
-      div#sidebar_wrapper.active
-        nav#sidebar.colored.active
-          button.navbar-btn.colored.sidebarCollapse(type="button")
-    block content
-
-    script.
-      $(document).ready(function() {
-        $('.sidebarCollapse').on('click', function() {
-          $('#sidebar').toggleClass('active');
-          $('.overlay').toggleClass('active');
-          $('#sidebar_wrapper').toggleClass('active');
-          $('.sidebarCollapse').toggleClass('active');
-          $('#topbar').toggleClass('active');
-        })
-      });
+html(style="--sidebar-margin:0px;")
+head
+  meta(charset='utf-8')
+  title Doberview
+  link(rel='stylesheet' href='doberview_styles.css')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+  script(src="javascripts/layout.js", type="text/javascript")
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.2/css/all.css' integrity='sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay' crossorigin='anonymous')
+  
+  block extrahead
+  
+body
+.sidebar
+  ul
+    li
+      a(href='/index')
+        i.fas.fa-eye
+        label Overview
+    li
+      a(href='/diagrams')
+        i.fas.fa-chart-area
+        label Diagrams
+    li
+      a(href='/hosts')
+        i.fas.fa-server
+        label Hosts
+    li
+      a(href='/sensors')
+        i.fas.fa-thermometer-quarter
+        label Sensors
+    li
+      a(href='/shifts')
+        i.fas.fa-calendar-alt
+        label Shifts
+    li
+      a(href='/logs')
+        i.far.fa-clipboard
+        label Logs
+.navbar
+  a.btn_toggle_sidebar('onclick'='toggleSidebar()')
+    i.fas.fa-stream
+  .dropdown
+    button.dropbtn
+      | Choose Experiment 
+      i.fa.fa-angle-down
+    .dropdown-content
+      a(href='#') XeBRA
+      a(href='#') PANCAKE
+  .flexible-nav
+    .dropdown.right-navbar
+      button.dropbtn
+        | Jaron Grigat 
+        i.fa.fa-angle-down
+      .dropdown-content
+        a(href='#') Logout
+block content
+  

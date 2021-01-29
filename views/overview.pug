@@ -2,16 +2,19 @@ extends layout
 
 block extrahead
   script(src="/javascripts/overview.js", type="text/javascript")
-
 block content
-  div.main-container(style='background-color:#eeeeee;margin:-5px;padding:1px;height:100vh')
-  br
-  div.row
-    each val in [['one', 'One'], ['two', 'Two']]
-      div.col-md-4.col-xs-12
-  br
-
-  script.
-    $(document).ready(function(){
-
-    });
+  div.main-container
+    div.grid
+        div.overview(class="card")
+           div.card-header
+             h5(class="card-title") Overview
+             div.card-content
+        div.hosts(class="card")
+           div.card-header
+             h5(class="card-title") Hosts
+           div.card-content
+        div.shifters(class="card")
+           div.card-header
+             h5(class="card-title") Shifters
+           div.card-content
+        
