@@ -174,8 +174,41 @@ body, html{
     transition: 0.8s all;
 }
 
+.det_card{
+    padding: 10px;
+    background-color: white;
+    color: #333333;
+    border: solid 1px #cccccc;
+    height:120px;
+    overflow: scroll;
+}
+.det_card_noheight{
+    padding: 10px;
+    background-color: white;
+    color: #333333;
+    border: solid 1px #cccccc;
+}
 
-.main-container .grid {
+.overview .img{
+    position: relative;
+    width: 100%;
+}
+.overview .reading{
+    position: absolute;
+}
+.fontscale_header{
+    font-size: 4.0em;
+}
+.fontscale_status{
+    font-size: 2.0em;
+}
+.fontscale{
+    font-size: 2.0em;
+}
+.fontscale_small{
+    font-size: 1.0em;
+}
+/*.main-container .grid {
     display: grid;
     height: 100%;
     grid-template-columns:  75% 25%;
@@ -217,3 +250,4 @@ font-weight: 500;
 color: #495057;
 margin: 0;
 }
+*/

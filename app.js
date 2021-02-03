@@ -5,9 +5,24 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 
-const { MongoClient } = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 var uri = process.env.DOBERVIEW_MONGO_URI;
-var db = MongoClient(uri);
+var db_name = "xebra_settings";
+var db;
+MongoClient.connect(uri, function (err, client) {
+    db = client.db(db_name);
+});
+
+var common_db;
+MongoClient.connect(uri, function (err, client) {
+    common_db = client.db("common");
+});
+
+//const Influx = require('influx');
+//var influx_uri = process.env.DOBERVIEW_INFLUX_URI;
+//var influx_db = new Influx.InfluxDB(uri);
+
+
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -17,26 +32,28 @@ var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
 var store_uri = process.env.DOBERVIEW_MONGO_URI;
 var store = new MongoDBStore({
-  uri: store_uri,
-  collection: 'sessions'
+    uri: store_uri,
+    collection: 'sessions'
 });
 
-store.on('connected', function() {store.client;});
+store.on('connected', function () {
+    store.client;
+});
 
 var assert = require('assert');
-store.on('error', function(error) {
-  assert.ifError(error);
-  assert.ok(false);
+store.on('error', function (error) {
+    assert.ifError(error);
+    assert.ok(false);
 });
 
 app.use(session({
-  secret: 'secret-key', //process.env.EXPRESS_SESSION,
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week in ms
-  },
-  store: store,
-  resave: true,
-  saveUninitialized: false
+    secret: 'secret-key', //process.env.EXPRESS_SESSION,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week in ms
+    },
+    store: store,
+    resave: true,
+    saveUninitialized: false
 }));
 
 // Passport auth
@@ -44,21 +61,9 @@ var passport = require('passport');
 require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
-const isLoggedIn = require('./routes/common')
-app.get('/', isLoggedIn, (req,res)=>{
-res.send(`Hello world ${req.user.displayName}`)
-})
-app.get('/auth/error', (req, res) => res.send('Unknown Error'))
-app.get('/auth/github',passport.authenticate('github',{ scope: [ 'user:email' ] }));
-app.get('/auth/github/callback',passport.authenticate('github', { failureRedirect: '/auth/error' }),
-function(req, res) {
-  res.redirect('/');
-});
-app.get('/logout', (req, res) => {
-  req.session = null;
-  req.logout();
-  res.redirect('/');
-})
+
+
+
 // aliases for paths
 app.use('/bs', express.static(__dirname + '/node_modules/bootstrap3/dist'));
 app.use('/jq', express.static(__dirname + '/node_modules/jquery/dist'));
@@ -80,33 +85,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // add our databases etc to the router
 app.use((req, res, next) => {
-  req.db = db;
-  next();
+    req.db = db;
+    req.common_db = common_db;
+    next();
 });
 
 // url routers
-var indexRouter = require('./routes/overview');
+var overviewRouter = require('./routes/overview');
+var authRouter = require('./routes/auth');
 
-app.use('/', indexRouter);
-
+app.use('/', overviewRouter);
+app.use('/overview', overviewRouter);
+app.use('/index', overviewRouter);
+app.use('/auth', authRouter);
 
 // catch 404
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 // make user object accessible to templates
-app.use(function(req, res, next) {
-  res.locals.user = req.user;
-  next();
+app.use(function (req, res, next) {
+    res.locals.user = req.user;
+    next();
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  res.render('error');
+app.use(function (err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
