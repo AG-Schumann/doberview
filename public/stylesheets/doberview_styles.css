@@ -1,0 +1,138 @@
+:root{
+    --sidebar-width: 60px;
+    --navbar-height: 46px;
+
+}
+
+body, html{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+.sidebar{
+    width: var(--sidebar-width);
+    margin-left: 0px;
+    height: 100%;
+    background: #293041;
+    transition: 0.8s all;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin-left: var(--sidebar-margin);
+}
+
+.sidebar ul{
+    margin: 60px 0px 0px 0px;
+    padding: 0;
+}
+
+.sidebar ul li{
+    list-style: none;
+}
+
+.sidebar ul li a{
+    text-decoration: none;
+    color: #898e98;
+    height: 80px;
+    width: 100%;
+    transition: 0.4s all;
+}
+
+.sidebar ul li a:hover{
+    color: #b7bcc2;
+}
+
+
+.sidebar ul li a i{
+    font-size: 20px;
+    text-align: center;
+    display: block;
+
+}
+
+.sidebar ul li a label{
+    font-size: 12px;
+    text-align: center;
+    padding: 0px 0px 30px 0px;
+    display: block;
+}
+
+.btn_toggle_sidebar{
+    float: left;
+    font-size: 20px;
+    text-decoration: none;
+    color: #898e98;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.navbar{
+    position: relative;
+    left: calc(var(--sidebar-width) + var(--sidebar-margin)) !important;
+    height: var(--navbar-height);
+    transition: 0.8s all;
+}
+.navbar-light{
+    background-color: white;
+}
+/* Overview Styles */
+
+.main-container {
+    position: relative;
+    left: calc(var(--sidebar-width) + var(--sidebar-margin));
+    top: var(--navbar-height);
+    z-index: 0;
+    width: calc(100% - var(--sidebar-width) - var(--sidebar-margin));
+    height: calc(100% - var(--navbar-height));
+    background: #f7f9fc;
+    transition: 0.8s all;
+}
+
+.det_card{
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid  transparent;
+    border-radius: .25rem;
+    box-shadow: 0 0 .875rem 0 rgba(41,48,66,.05);
+    height:120px;
+    overflow: scroll;
+}
+.det_card_noheight{
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid  transparent;
+    border-radius: .25rem;
+    box-shadow: 0 0 .875rem 0 rgba(41,48,66,.05);
+}
+
+.overview .img{
+    position: relative;
+    width: 100%;
+}
+.overview .reading{
+    position: absolute;
+}
+.fontscale_header{
+    font-size: 4.0em;
+}
+.fontscale_status{
+    font-size: 2.0em;
+}
+.fontscale{
+    font-size: 2.0em;
+}
+.fontscale_small{
+    font-size: 1.0em;
+}
+
+.nomargin{
+    margin: 0px !important;
+}
