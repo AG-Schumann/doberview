@@ -16,6 +16,20 @@ head
 block extrahead
 
 body
+
+    nav.navbar.navbar-expand-md.navbar-light.fixed-top
+        ul.navbar-nav.mr-auto
+            li.nav-item.btn_toggle_sidebar('onclick'='toggleSidebar()')
+                a.nav-link.i.fas.fa-stream
+            li.nav-item.dropdown
+                a#dropdown01.nav-link.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Choose Experiment
+                .dropdown-menu
+                    a.dropdown-item(href="#") XeBRA
+                    a.dropdown-item(href="#") PANCAKE
+        ul.navbar-nav.ml-auto
+            li.nav-item
+                a.nav-link(href="/logout") Logout &nbsp
+                    i.fas.fa-sign-out-alt
 .sidebar
     ul
         li
@@ -42,22 +56,6 @@ body
             a(href='/logs')
                 i.far.fa-clipboard
                 label Logs
-.navbar
-    a.btn_toggle_sidebar('onclick'='toggleSidebar()')
-        i.fas.fa-stream
-    .dropdown
-        button.dropbtn
-            | Choose Experiment &nbsp;
-            i.fa.fa-angle-down
-        .dropdown-content
-            a(href='#') XeBRA
-            a(href='#') PANCAKE
-    .flexible-nav
-        .dropdown.right-navbar
-            button.dropbtn
-                | Jaron Grigat &nbsp;
-                i.fa.fa-angle-down
-            .dropdown-content
-                a(href='#') Logout
+
 block content
   

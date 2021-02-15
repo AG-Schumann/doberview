@@ -48,7 +48,6 @@ router.get('/get_host_status', function (req, res) {
     var today = new Date();
     db.collection("hosts").find({}).toArray(function (err, result) {
         if (err) throw err;
-        console.log(result);
         for (var i in result) {
             ret.push({"hostname": result[i]["hostname"]});
             var heartbeat = (new Date().getTime() - result[i]["heartbeat"].getTime()) / 1000 >> 0;
@@ -61,7 +60,6 @@ router.get('/get_host_status', function (req, res) {
             }
 
         }
-        console.log(ret);
         return res.json(ret);
         });
 });

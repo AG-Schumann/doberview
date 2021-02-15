@@ -1,5 +1,6 @@
 var passport = require('passport');
 var bcrypt = require('bcrypt');
+const https = require('https');
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
@@ -15,13 +16,18 @@ passport.use(new GithubStrategy(
     scope: ['user:email', 'user:name', 'user:login', 'user:id'],
   },
   function(accessToken, refreshToken, profile, done) {
-    return done(null, profile);
-	  //var collection = db.get('users');
-    //collection.findOne({github_id: profile.id})
-    //.then( (doc) => {if (doc) return done(null, doc); return done(null, false);})
-    //.catch((err) => done(err, false));
-  })
-);
+      https.get('https://api.github.com/orgs/AG-Schumann/members', (res) => {
+          console.log(res);
+
+          res.on('data', (d) => {
+              process.stdout.write(d);
+          });
+
+      }).on('error', (e) => {
+          console.error(e);
+      });
+  }));
+
 
 passport.use(new LocalStrategy(
   function(username, password, done) {

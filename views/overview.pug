@@ -4,30 +4,28 @@ block extrahead
     script(src="/javascripts/overview.js", type="text/javascript")
 block content
     div.main-container
-        div.row
+        div.row.nomargin
             div.col-md-9
                 div.det_card_noheight
                     div.overview
                         img(src='/images/pancake_pid.png' style='width:100%; height:100%;')
-                        div.reading(style="top: 0px; left: 0px;")
-                            strong Hallo
             div.col-md-3
-                div.row
-                    div.col-md-12
-                        div.det_card_noheight
-                            div.hosts
-                                i.fas.fa-server &nbsp Hosts
-                                div#host_box
-                div.row
-                    div.col-md-12
-                        div.det_card_noheight
-                            div.shifters
-                                i.fas.fa-users &nbsp Shifters
-                                div#shift_box
+                div.row.nomargin
+                    div.det_card_noheight
+                        div.hosts
+                            i.fas.fa-server &nbsp Hosts
+                            div#host_box
+                div.row.nomargin
+                    div.det_card_noheight
+                        div.shifters
+                            i.fas.fa-users &nbsp Shifters
+                            div#shift_box
 
         script.
             $(document).ready(function () {
                 PopulateHosts("host_box");
                 PopulateShifters("shift_box");
-                setInterval(function (){PopulateHosts("host_box");}, 3000);
+                setInterval(function () {
+                    PopulateHosts("host_box");
+                }, 3000);
             });
